@@ -1,7 +1,7 @@
 // import "./styles.scss";
 import React, { useState } from "react";
-import { roomName } from "../../../lib/data";
-import './SelectCheckbox.scss';
+import { roomName } from "../../../lib/data"; //
+import Tag from '../Tag/Tag';
 
 // To add data as props ==> const SelectCheckbox = ({data}) and remove const data = roomName
 const SelectCheckbox = () => {
@@ -19,41 +19,29 @@ const SelectCheckbox = () => {
   };
 
   return (
-    <div className="App">
-      <div className="wrapper">
-        <div className="title">
-          <h1>Selectable checkbox with tags</h1>
-        </div>
-        <div className="tag">
-          {tags.map((tag, id) => (
-            <div className="tag-list" onClick={() => handleRemoveTag(id)}>
-              <div className="tag-icon">
-                <img
-                  className="tag-icon"
-                  alt="tag-icon"
-                  src="https://preview.pixlr.com/images/800wm/100/1/1001399299.jpg"
-                />
-                <span key={id}> {tag} </span>
-                <button value={id}> x </button>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="select-checkbox-tag">
+      <div className="tag flex flex-wrap mb-8">
+        {tags.map((tag, id) => (
+          <div key={id} className="tag-list border-2 m-2 px-2" onClick={() => handleRemoveTag(id)}>
+            <Tag id={id} tag={tag.toLowerCase()} />
+          </div>
+        ))}
       </div>
 
-      <div className="data">
+      <div className="checkbox-data">
         {data?.filter((item) => !tags.includes(item.name))
           .map((item, index) => (
-            <div className="data-list">
-              <li>
+            <div key={index} className="data-list text-left list-none mx-4">
+              <li className=''>
                 <input
+                  className="rounded-sm"
                   type="checkbox"
                   key={index}
                   value={item.name}
                   onChange={handleChangeTag}
                   checked={tags.includes(item.name)}
                 />
-                <span>{item.name}</span>
+                <span className='pl-3'>{item.name}</span>
               </li>
             </div>
           ))}
